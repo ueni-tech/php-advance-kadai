@@ -28,7 +28,7 @@ try {
   $stmt_select->bindValue(':keyword', "%{$keyword}%", PDO::PARAM_STR);
   $stmt_select->execute();
 
-  $products = $stmt_select->fetchAll(PDO::FETCH_ASSOC);
+  $books = $stmt_select->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
   exit($e->getMessage());
 }
@@ -56,14 +56,14 @@ try {
     </nav>
   </header>
   <main>
-    <article class="products">
+    <article class="books">
       <h1>書籍一覧</h1>
       <?php
       if (isset($_GET['message'])) {
         echo "<p class='success'>{$_GET['message']}</p>";
       }
       ?>
-      <div class="products-ui">
+      <div class="books-ui">
         <div>
           <a href="read.php?order=desc&keyword=<?= $keyword ?>"><img src="images/desc.png" alt="降順" class="sort-img"></a>
           <a href="read.php?order=asc&keyword=<?= $keyword ?>"><img src="images/asc.png" alt="昇順" class="sort-img"></a>
@@ -74,7 +74,7 @@ try {
         </div>
         <a href="create.php" class="btn">書籍登録</a>
       </div>
-      <table class="products-table">
+      <table class="books-table">
         <tr>
           <th>書籍コード</th>
           <th>書籍名</th>
@@ -82,17 +82,19 @@ try {
           <th>在庫数</th>
           <th>ジャンルコード</th>
           <th>編集</th>
+          <th>削除</th>
         </tr>
         <?php
-        foreach ($products as $product) {
+        foreach ($books as $book) {
           $table_row = "
           <tr>
-          <td>{$product['book_code']}</td>
-          <td>{$product['book_name']}</td>
-          <td>{$product['price']}</td>
-          <td>{$product['stock_quantity']}</td>
-          <td>{$product['genre_code']}</td>
-          <td><a href='update.php?id={$product['id']}'><img src='images/edit.png' alt='編集' class='edit-icon'></td>
+          <td>{$book['book_code']}</td>
+          <td>{$book['book_name']}</td>
+          <td>{$book['price']}</td>
+          <td>{$book['stock_quantity']}</td>
+          <td>{$book['genre_code']}</td>
+          <td><a href='update.php?id={$book['id']}'><img src='images/edit.png' alt='編集' class='edit-icon'></td>
+          <td><a href='delete.php?id={$book['id']}'><img src='images/delete.png' alt='削除' class='delete-icon'></td>
           </tr>
           ";
           echo $table_row;
