@@ -6,19 +6,19 @@ $password = '';
 try {
   $pdo = new PDO($dsn, $user, $password);
 
-  if(isset($_GET['order'])){
+  if (isset($_GET['order'])) {
     $order = $_GET['order'];
   } else {
     $order = NULL;
   }
 
-  if(isset($_GET['keyword'])){
+  if (isset($_GET['keyword'])) {
     $keyword = $_GET['keyword'];
   } else {
     $keyword = NULL;
   }
 
-  if($order === 'desc'){
+  if ($order === 'desc') {
     $sql_select = "SELECT * FROM books WHERE book_name LIKE :keyword ORDER BY updated_at DESC";
   } else {
     $sql_select = "SELECT * FROM books WHERE book_name LIKE :keyword ORDER BY updated_at ASC";
@@ -58,6 +58,11 @@ try {
   <main>
     <article class="products">
       <h1>書籍一覧</h1>
+      <?php
+      if (isset($_GET['message'])) {
+        echo "<p class='success'>{$_GET['message']}</p>";
+      }
+      ?>
       <div class="products-ui">
         <div>
           <a href="read.php?order=desc&keyword=<?= $keyword ?>"><img src="images/desc.png" alt="降順" class="sort-img"></a>
@@ -67,7 +72,7 @@ try {
             <input type="text" class="search-box" placeholder="書籍名で検索" name="keyword" value=<?= $keyword ?>>
           </form>
         </div>
-        <a href="#" class="btn">書籍登録</a>
+        <a href="create.php" class="btn">書籍登録</a>
       </div>
       <table class="products-table">
         <tr>
@@ -78,7 +83,7 @@ try {
           <th>ジャンルコード</th>
         </tr>
         <?php
-        foreach($products as $product) {
+        foreach ($products as $product) {
           $table_row = "
           <tr>
           <td>{$product['book_code']}</td>
