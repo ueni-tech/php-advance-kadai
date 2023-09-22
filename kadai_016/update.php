@@ -90,7 +90,7 @@ if(isset($_GET['id'])){
       <form action="update.php?id=<?= $_GET['id'] ?>" method="post" class="registration-form">
         <div>
           <label for="book_code">書籍コード</label>
-          <input type="text" name="book_code" min="0" max="100000000" required value="<?= $book['book_code'] ?>">
+          <input type="number" name="book_code" min="0" max="100000000" required value="<?= $book['book_code'] ?>">
 
           <label for="book_name">書籍名</label>
           <input type="text" name="book_name" maxlength="50" required value="<?= $book['book_name'] ?>">
