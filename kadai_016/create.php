@@ -70,7 +70,7 @@ try {
       <form action="create.php" method="post" class="registration-form">
         <div>
           <label for="book_code">書籍コード</label>
-          <input type="text" name="book_code" min="0" max="100000000" required>
+          <input type="number" name="book_code" min="0" max="100000000" required>
 
           <label for="book_name">書籍名</label>
           <input type="text" name="book_name" maxlength="50" required>
